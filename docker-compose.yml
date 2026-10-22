@@ -21,3 +21,18 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_SHARE_COORDINATOR_STATE_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_SHARE_COORDINATOR_STATE_TOPIC_MIN_ISR: 1
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: wiki_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: wiki
+    ports:
+      - "5434:5432"
+    volumes:
+      - wiki_pgdata:/var/lib/postgresql/data
+
+volumes:
+  wiki_pgdata:
